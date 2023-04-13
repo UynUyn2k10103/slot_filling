@@ -1,0 +1,34 @@
+1. Tồn tại multi label. Hướng:
+    - tách multi label thành các label riêng rồi train (vấn đề: với nhãn multi label thì sẽ bị conflict ngay câu này)
+    - sử dụng multi label coi như 1 class riêng (ít câu trong intent đó?) (sử dụng loss của mse, crossentropy loss)
+        + num_sentences = 1 sử dụng mse
+        + num_sentences != 1 sử dụng crossentropy
+
+2. Loss:
+    - MSE: https://pytorch.org/docs/stable/generated/torch.nn.MSELoss.html
+    - CROSSENTROPYLOSS: https://pytorch.org/docs/stable/generated/torch.nn.CrossEntropyLoss.html
+
+3. Đọc về samples:
+    - https://www.scottcondron.com/jupyter/visualisation/audio/2020/12/02/dataloaders-samplers-collate.html#SequentialSampler
+
+4. LSTM + CRF:
+    - https://pytorch.org/tutorials/beginner/nlp/advanced_tutorial.html
+    - https://github.com/DandyQi/MaskedCRF
+    - doc CRF: https://docplayer.net/145376361-Pytorch-crf-documentation.html
+    - layer CRF pytorch: https://pytorch-crf.readthedocs.io/en/stable/
+
+
+
+5. Ý tưởng:
+    - sử dụng loss của intent, slot filing để update loss = loss_intent + loss_slot / 50 # tìm max, min 
+    của từng loại loss rồi normal tính tổng loss liệu có fair hơn???
+    để tỉ lệ ntn thì có cần điều chỉnh đoạn evaluate trên dev của cả 2 để update k?
+    - sử dụng out_intent làm 1 trong những input của slot, gộp với input slot(biểu diễn theo c1) để làm input vào của slot? hoặc ngược lại?
+
+
+    - tripletloss: https://www.kaggle.com/code/hirotaka0122/triplet-loss-with-pytorch/notebook
+
+load model cometml
+    https://www.comet.com/production/docs-v2/integrations/ml-frameworks/pytorch/#pytorch-model-saving-and-loading
+
+tìm hiểu mô hình cho seq2seq cho information
